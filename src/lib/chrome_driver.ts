@@ -82,6 +82,11 @@ function spawnChromeBrowser(session: ChromeSession, headless: boolean, width: nu
         } catch(err) {}
       }
       if (chromePath === "") {
+        try {
+          chromePath = childProcess.execSync(`which chromium-browser`).toString().trim();
+        } catch(err) {}
+      }
+      if (chromePath === "") {
         return Promise.reject(`Unable to find a Google Chrome or Chromium installation.`)
       }
       return session.spawnBrowser(Object.assign({
