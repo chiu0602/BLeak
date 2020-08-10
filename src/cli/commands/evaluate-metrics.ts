@@ -83,6 +83,11 @@ const EvaluateMetrics: CommandModule = {
       shutDown();
     });
 
+    process.on('unhandledRejection', (e: Error) => {
+      console.error('unhandledRejection', e);
+      process.exit(1) // To exit with a 'failure' code
+    });
+
     BLeak.EvaluateRankingMetrics(configFileSource, progressBar, chromeDriver, results, (results) => {
       writeFileSync(args.results, Buffer.from(JSON.stringify(results), 'utf8'));
     }).then(shutDown).catch((e) => {
