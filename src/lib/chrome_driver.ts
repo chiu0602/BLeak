@@ -42,7 +42,8 @@ function spawnChromeBrowser(session: ChromeSession, headless: boolean, width: nu
     `--proxy-server=127.0.0.1:8080`,
     `--disable-background-timer-throttling`,
     `--disable-renderer-backgrounding`,
-    `--disable-renderer-priority-management`
+    `--disable-renderer-priority-management`,
+    `--ignore-certificate-errors-spki-list`
   ].concat(chromeArgs)
 
   if (headless) {
