@@ -59,6 +59,11 @@ const Run: CommandModule = {
     // https://stackoverflow.com/a/38482688
     process.on('warning', (e: Error) => progressBar.error(e.stack));
 
+    process.on('unhandledRejection', (e: Error) => {
+      console.error('unhandledRejection', e);
+      process.exit(1) // To exit with a 'failure' code
+    });
+
     async function main() {
       const configFileSource = readFileSync(args.config).toString();
       const bleakResultsOutput = join(args.out, 'bleak_results.json');
