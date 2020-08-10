@@ -61,7 +61,7 @@ const Run: CommandModule = {
 
     process.on('unhandledRejection', (e: Error) => {
       console.error('unhandledRejection', e);
-      process.exit(1) // To exit with a 'failure' code
+      // process.exit(1) // To exit with a 'failure' code
     });
 
     async function main() {
