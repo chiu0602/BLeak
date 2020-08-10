@@ -71,10 +71,15 @@ function spawnChromeBrowser(session: ChromeSession, headless: boolean, width: nu
     case 'openbsd': {
       // *nix; need to find the exact path to Chrome / Chromium
       // .trim() removes trailing newline from `which` output.
-      let chromePath = childProcess.execSync(`which google-chrome`).toString().trim();
+      let chromePath = "";
+      try {
+        chromePath = childProcess.execSync(`which google-chrome`).toString().trim();
+      } catch(err) {}
       if (chromePath === "") {
         // Try Chromium
-        chromePath = childProcess.execSync(`which chromium`).toString().trim();
+        try {
+          chromePath = childProcess.execSync(`which chromium`).toString().trim();
+        } catch(err) {}
       }
       if (chromePath === "") {
         return Promise.reject(`Unable to find a Google Chrome or Chromium installation.`)
